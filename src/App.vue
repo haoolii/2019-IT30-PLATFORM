@@ -1,29 +1,71 @@
 <template>
   <div id="app">
-    <div id="nav">
-      <router-link to="/">Home</router-link> |
-      <router-link to="/about">About</router-link>
+    <div class="errorBlock"
+         v-if="true">
+      <transition-group name="list"
+                        tag="div">
+        <span v-for="(error, index) in this.$store.state.errors"
+              :key="index">
+          {{error.content}}
+        </span>
+      </transition-group>
     </div>
-    <router-view />
+    <div class="container">
+      <transition name="page"
+                  mode="out-in">
+        <router-view />
+      </transition>
+    </div>
   </div>
 </template>
 
 <style lang="scss">
+@import "@/styles/global.scss";
 #app {
   font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #2c3e50;
+  width: 100%;
+  height: 100%;
 }
-#nav {
-  padding: 30px;
-  a {
-    font-weight: bold;
-    color: #2c3e50;
-    &.router-link-exact-active {
-      color: #42b983;
-    }
+.container {
+  margin: 0 auto;
+  max-width: 750px;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.errorBlock {
+  text-align: center;
+  position: fixed;
+  width: 100%;
+  span {
+    display: block;
+    background: crimson;
+    height: 2rem;
+    line-height: 2rem;
+    color: white;
+    width: 100%;
   }
+}
+.list-enter-active,
+.list-leave-active {
+  transition: all 1s;
+}
+.list-enter,
+.list-leave-to {
+  opacity: 0;
+}
+.page-enter-active,
+.page-leave-active {
+  transition: opacity 1s, transform 1s;
+}
+.page-enter,
+.page-leave-to {
+  opacity: 0;
+  transform: translateX(-30%);
 }
 </style>

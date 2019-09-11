@@ -1,6 +1,12 @@
 <template>
-  <div class="game-list">
-    <GameCard :gameLogo="'bcrlogo'" />
+  <div class="Scrollhide">
+    <div class="game-list">
+      <GameCard :gameLogo="'bcrlogo'" />
+      <GameCard :gameLogo="'bcrlogo'" />
+      <GameCard :gameLogo="'bcrlogo'" />
+      <GameCard :gameLogo="'bcrlogo'" />
+      <GameCard :gameLogo="'bcrlogo'" />
+    </div>
   </div>
 </template>
 
@@ -14,10 +20,15 @@ export default {
 </script>
 
 <style lang="scss" scoped>
+.Scrollhide {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
 .game-list {
   height: 100%;
   width: 110%;
   padding-right: 10%;
-  overflow: scroll;
+  overflow-y: scroll;
 }
 </style>

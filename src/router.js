@@ -5,7 +5,7 @@ import Register from './views/Register.vue'
 
 Vue.use(Router)
 
-export default new Router({
+const router = new Router({
   // mode: 'history',
   base: process.env.BASE_URL,
   routes: [
@@ -27,26 +27,50 @@ export default new Router({
     {
       path: '/lobby',
       name: 'lobby',
-      component: () => import(/* webpackChunkName: "Lobby" */ './views/Lobby.vue'),
+      meta: { requiresAuth: true },
+      component: () =>
+        import(/* webpackChunkName: "Lobby" */ './views/Lobby.vue'),
       children: [
         // UserHome will be rendered inside User's <router-view>
         // when /user/:id is matched
         {
           path: '/lobby',
           name: 'gamelist',
-          component: () => import(/* webpackChunkName: "GameList" */ './views/GameList.vue')
+          component: () =>
+            import(/* webpackChunkName: "GameList" */ './views/GameList.vue')
         },
         {
           path: '/lobby/withdrawal',
           name: 'withdrawal',
-          component: () => import(/* webpackChunkName: "Withdrawal" */ './views/Withdrawal.vue')
+          component: () =>
+            import(
+              /* webpackChunkName: "Withdrawal" */ './views/Withdrawal.vue'
+            )
         },
         {
           path: '/lobby/deposit',
           name: 'deposit',
-          component: () => import(/* webpackChunkName: "Deposit" */ './views/Deposit.vue')
+          component: () =>
+            import(/* webpackChunkName: "Deposit" */ './views/Deposit.vue')
         }
       ]
     }
   ]
 })
+
+// 所有路由執行前會在這
+router.beforeEach((to, from, next) => {
+  const loggedIn = localStorage.getItem('user')
+
+  if (to.matched.some(record => record.meta.requiresAuth)) {
+    if (!loggedIn) {
+      next('/')
+    } else {
+      next()
+    }
+  } else {
+    next()
+  }
+})
+
+export default router

@@ -23,7 +23,7 @@ export default new Vuex.Store({
       // 清除本地端user資料防止loggedIn再讀取到
       localStorage.removeItem('user')
       // reload這個頁面 重置所有vue檔案
-      location.reload()
+      window.location.reload()
     },
     SET_ERROR_DATA (state, error) {
       // 設置state
@@ -45,11 +45,11 @@ export default new Vuex.Store({
     // 組建呼叫此register credentials就是我們帶入的data
     register ({ commit }, credentials) {
       // 回傳axios此一回傳 可用then串起來
-      return axios.post('//localhost:3000/register', credentials)
+      return axios.post('//localhost:3000/api/register', credentials)
     },
     login ({ commit }, credentials) {
       // 回傳axios此一回傳 可用then串起來
-      return axios.post('//localhost:3000/login', credentials).then(
+      return axios.post('//localhost:3000/api/login', credentials).then(
         // 回來的資料就commit到mutations修改state
         ({ data }) => {
           commit('SET_USER_DATA', data)
@@ -57,11 +57,11 @@ export default new Vuex.Store({
       )
     },
     updateUserInfo ({ commit, state }) {
-      return axios.post('//localhost:3000/userInfo', state.user).then(
-        ({ data }) => {
+      return axios
+        .get('//localhost:3000/api/userInfo', state.user)
+        .then(({ data }) => {
           commit('SET_USER_DATA', data)
-        }
-      )
+        })
     },
     // 登出方法
     logout ({ commit }) {

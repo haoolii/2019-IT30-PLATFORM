@@ -1,18 +1,12 @@
 <template>
   <div id="app">
-    <div class="errorBlock"
-         v-if="true">
-      <transition-group name="list"
-                        tag="div">
-        <span v-for="(error, index) in this.$store.state.errors"
-              :key="index">
-          {{error.content}}
-        </span>
-      </transition-group>
+    <div class="errorBlock" v-if="true">
+      <span v-for="(error, index) in this.$store.state.errors" :key="index">
+        {{ error.content }}
+      </span>
     </div>
     <div class="container">
-      <transition name="page"
-                  mode="out-in">
+      <transition name="page" mode="out-in">
         <router-view />
       </transition>
     </div>
@@ -20,9 +14,9 @@
 </template>
 
 <style lang="scss">
-@import "@/styles/global.scss";
+@import '@/styles/global.scss';
 #app {
-  font-family: "Avenir", Helvetica, Arial, sans-serif;
+  font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

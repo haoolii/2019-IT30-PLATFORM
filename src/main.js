@@ -26,6 +26,8 @@ new Vue({
           // 401就登出
           if (error.response.status === 401) {
             this.$store.dispatch('logout')
+          } else {
+            this.$store.dispatch('pushError', error.response)
           }
           return Promise.reject(error)
         }

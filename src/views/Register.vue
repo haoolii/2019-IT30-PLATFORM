@@ -1,16 +1,16 @@
 <template>
   <div class="login-form">
     <div class="icon"></div>
-    <template v-if="true">
+    <template v-if="!done">
       <p>註冊會將登入密碼寄送至信箱</p>
-      <form action=""
-            @submit.prevent="register"
-            autocomplete="off">
-        <input type="email"
-               placeholder="信箱"
-               v-model="email"
-               :class="{emptyRed: isEmptyWarning(email)}"
-               autocomplete="off" />
+      <form action="" @submit.prevent="register" autocomplete="off">
+        <input
+          type="email"
+          placeholder="信箱"
+          v-model="email"
+          :class="{ emptyRed: isEmptyWarning(email) }"
+          autocomplete="off"
+        />
         <button type="submit">註冊</button>
       </form>
       <span class="note">
@@ -49,7 +49,7 @@ export default {
     },
     register () {
       if (!this.email) {
-        this.$store.dispatch('pushError', '欄位不能為空')
+        this.$store.dispatch('pushError', { error: '欄位不能為空' })
         this.emptyError = true
         return null
       }
@@ -58,10 +58,8 @@ export default {
       })
         .then((res) => {
           this.done = true
-          console.log(res)
-        })
-        .catch(err => {
-          this.$store.dispatch('pushError', err.response.data.error)
+        }).catch(err => {
+          this.$store.dispatch('pushError', err.response.data)
         })
     }
   }
@@ -69,7 +67,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import "@/styles/global.scss";
+@import '@/styles/global.scss';
 .login-form {
   width: 300px;
   padding: 3rem 2rem 2rem 2rem;
@@ -83,7 +81,7 @@ export default {
     text-align: center;
   }
   .icon {
-    background-image: url("~@/assets/logo.png");
+    background-image: url('~@/assets/logo.png');
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;

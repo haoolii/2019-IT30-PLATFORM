@@ -2,7 +2,7 @@
   <div id="app">
     <div class="errorBlock" v-if="true">
       <span v-for="(error, index) in this.$store.state.errors" :key="index">
-        {{ error.content }}
+        {{ error.content.error }}
       </span>
     </div>
     <div class="container">

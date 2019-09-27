@@ -55,7 +55,7 @@ export default {
     this.$store.dispatch('updateUserInfo').then(() => {
       console.log('update success')
     })
-    axios.get('//localhost:3000/api/lobby').then(({ data }) => {
+    axios.get(`//${process.env.VUE_APP_HOST}:${process.env.VUE_APP_PORT}/api/lobby`).then(({ data }) => {
       if (data.lobbyInfo.notify) {
         this.notifyArray = data.lobbyInfo.notify
       }

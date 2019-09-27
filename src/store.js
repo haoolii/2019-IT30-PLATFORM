@@ -45,11 +45,13 @@ export default new Vuex.Store({
     // 組建呼叫此register credentials就是我們帶入的data
     register ({ commit }, credentials) {
       // 回傳axios此一回傳 可用then串起來
-      return axios.post('//localhost:3000/api/register', credentials)
+      return axios.post(`//${process.env.VUE_APP_HOST}:${process.env.VUE_APP_PORT}/api/register`, credentials)
     },
     login ({ commit }, credentials) {
       // 回傳axios此一回傳 可用then串起來
-      return axios.post('//localhost:3000/api/login', credentials).then(
+      console.log(process.env.VUE_APP_HOST)
+      console.log(process.env.VUE_APP_PORT)
+      return axios.post(`//${process.env.VUE_APP_HOST}:${process.env.VUE_APP_PORT}/api/login`, credentials).then(
         // 回來的資料就commit到mutations修改state
         ({ data }) => {
           commit('SET_USER_DATA', data)
@@ -58,7 +60,7 @@ export default new Vuex.Store({
     },
     updateUserInfo ({ commit, state }) {
       return axios
-        .get('//localhost:3000/api/userInfo', state.user)
+        .get(`//${process.env.VUE_APP_HOST}:${process.env.VUE_APP_PORT}/api/userInfo`, state.user)
         .then(({ data }) => {
           commit('SET_USER_DATA', data)
         })

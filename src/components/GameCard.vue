@@ -1,8 +1,10 @@
 <template>
-  <div class="game" @click="toGame">
+  <div class="game"
+       @click="toGame">
     <div class="mask"></div>
     <div class="gamelogo">
-      <img :src="getImgUrl(gameLogo)" alt="" />
+      <img :src="getImgUrl(gameLogo)"
+           alt="" />
     </div>
     <h2>JOIN GAME</h2>
   </div>
@@ -21,7 +23,7 @@ export default {
       return require('@/assets/' + name + '.png')
     },
     toGame () {
-      var win = window.open(window.location.origin + '/game', '_blank')
+      var win = window.open(window.location.origin + '/game')
       win.focus()
     }
   }
@@ -29,7 +31,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/global.scss';
+@import "@/styles/global.scss";
 .game {
   position: relative;
   margin-top: 20px;

@@ -2,10 +2,6 @@
   <div class="Scrollhide">
     <div class="game-list">
       <GameCard :gameLogo="'bcrlogo'" />
-      <GameCard :gameLogo="'bcrlogo'" />
-      <GameCard :gameLogo="'bcrlogo'" />
-      <GameCard :gameLogo="'bcrlogo'" />
-      <GameCard :gameLogo="'bcrlogo'" />
     </div>
   </div>
 </template>

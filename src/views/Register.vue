@@ -3,15 +3,16 @@
     <div class="icon"></div>
     <template v-if="!done">
       <p>註冊會將登入密碼寄送至信箱</p>
-      <form action="" @submit.prevent="register" autocomplete="off">
-        <input
-          type="email"
-          placeholder="信箱"
-          v-model="email"
-          :class="{ emptyRed: isEmptyWarning(email) }"
-          autocomplete="off"
-        />
-        <button type="submit">註冊</button>
+      <form action=""
+            @submit.prevent="register"
+            autocomplete="off">
+        <input type="email"
+               placeholder="信箱"
+               v-model="email"
+               :class="{ emptyRed: isEmptyWarning(email) }"
+               autocomplete="off" />
+        <button type="submit"
+                :disabled="isLock">註冊</button>
       </form>
       <span class="note">
         已經有帳號了?
@@ -34,7 +35,8 @@ export default {
     return {
       email: '',
       done: false,
-      emptyError: false
+      emptyError: false,
+      isLock: false
     }
   },
   methods: {
@@ -53,12 +55,18 @@ export default {
         this.emptyError = true
         return null
       }
+      this.$Progress.start()
+      this.isLock = true
       this.$store.dispatch('register', {
         email: this.email
       })
         .then((res) => {
+          this.$Progress.finish()
+          this.isLock = false
           this.done = true
         }).catch(err => {
+          this.$Progress.fail()
+          this.isLock = false
           this.$store.dispatch('pushError', err.response.data)
         })
     }
@@ -67,7 +75,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/global.scss';
+@import "@/styles/global.scss";
 .login-form {
   width: 300px;
   padding: 3rem 2rem 2rem 2rem;
@@ -81,7 +89,7 @@ export default {
     text-align: center;
   }
   .icon {
-    background-image: url('~@/assets/logo.png');
+    background-image: url("~@/assets/logo.png");
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;

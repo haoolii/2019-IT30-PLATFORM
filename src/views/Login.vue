@@ -2,19 +2,16 @@
   <div class="login-form">
     <div class="icon"></div>
     <h2>IT30路邊賭場上線了！</h2>
-    <form @submit.prevent="login" autocomplete="off">
-      <input
-        type="text"
-        placeholder="信箱"
-        v-model="email"
-        autocomplete="off"
-      />
-      <input
-        type="password"
-        placeholder="密碼"
-        v-model="password"
-        autocomplete="off"
-      />
+    <form @submit.prevent="login"
+          autocomplete="off">
+      <input type="text"
+             placeholder="信箱"
+             v-model="email"
+             autocomplete="off" />
+      <input type="password"
+             placeholder="密碼"
+             v-model="password"
+             autocomplete="off" />
       <button type="submit">登入</button>
       <button disabled>試玩</button>
     </form>
@@ -38,16 +35,20 @@ export default {
       if (!this.email || !this.password) {
         this.$store.dispatch('pushError', { error: '欄位不能為空' })
       } else {
+        this.$Progress.start()
         this.$store.dispatch('login', {
           email: this.email,
           password: this.password
         })
           .then(() => {
+            this.$Progress.finish()
             this.$router.push({ name: 'gamelist' })
           }, (err) => {
+            this.$Progress.fail()
             this.$store.dispatch('pushError', err.response.data)
           })
           .catch(err => {
+            this.$Progress.fail()
             this.$store.dispatch('pushError', err.response.data)
           })
       }
@@ -57,7 +58,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/global.scss';
+@import "@/styles/global.scss";
 
 .login-form {
   padding: 6rem 3rem 3rem 3rem;
@@ -102,7 +103,7 @@ export default {
     }
   }
   .icon {
-    background-image: url('~@/assets/logo.png');
+    background-image: url("~@/assets/logo.png");
     background-size: contain;
     background-position: center;
     background-repeat: no-repeat;

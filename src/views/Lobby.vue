@@ -1,11 +1,13 @@
 <template>
   <div class="lobby-container">
     <nav>
-      <div class="menu-icon" @click="menuClick">
+      <div class="menu-icon"
+           @click="menuClick">
         <i class="fa fa-bars fa-2x"></i>
       </div>
       <div class="logo">
-        <img src="@/assets/logo.png" alt="" />
+        <img src="@/assets/logo.png"
+             alt="" />
       </div>
       <div class="menu">
         <ul :class="{ appear: menuOpen }">
@@ -18,7 +20,9 @@
           <li>
             <router-link :to="{ name: 'withdrawal' }">提現</router-link>
           </li>
-          <li><a href="#" class="logout" @click="logout">登出</a></li>
+          <li><a href="#"
+               class="logout"
+               @click="logout">登出</a></li>
         </ul>
       </div>
       <div class="balance">
@@ -33,7 +37,8 @@
           {{ marqueeContent }}
         </marquee-text>
       </div>
-      <transition name="page" mode="out-in">
+      <transition name="page"
+                  mode="out-in">
         <router-view />
       </transition>
     </div>
@@ -55,7 +60,7 @@ export default {
     this.$store.dispatch('updateUserInfo').then(() => {
       console.log('update success')
     })
-    axios.get(`//${process.env.VUE_APP_HOST}:${process.env.VUE_APP_PORT}/api/lobby`).then(({ data }) => {
+    axios.get(`//${process.env.VUE_APP_HOST}/api/lobby`).then(({ data }) => {
       if (data.lobbyInfo.notify) {
         this.notifyArray = data.lobbyInfo.notify
       }
@@ -90,7 +95,7 @@ export default {
 </script>
 
 <style lang="scss" scoped>
-@import '@/styles/global.scss';
+@import "@/styles/global.scss";
 .lobby-container {
   position: relative;
   height: 100%;

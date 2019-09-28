@@ -1,22 +1,26 @@
 <template>
   <div id="app">
-    <div class="errorBlock" v-if="true">
-      <span v-for="(error, index) in this.$store.state.errors" :key="index">
+    <div class="errorBlock"
+         v-if="true">
+      <span v-for="(error, index) in this.$store.state.errors"
+            :key="index">
         {{ error.content.error }}
       </span>
     </div>
     <div class="container">
-      <transition name="page" mode="out-in">
+      <transition name="page"
+                  mode="out-in">
         <router-view />
       </transition>
     </div>
+    <vue-progress-bar></vue-progress-bar>
   </div>
 </template>
 
 <style lang="scss">
-@import '@/styles/global.scss';
+@import "@/styles/global.scss";
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
+  font-family: "Avenir", Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   text-align: center;

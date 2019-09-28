@@ -1,11 +1,26 @@
 import Vue from 'vue'
+import VueProgressBar from 'vue-progressbar'
 import App from './App.vue'
 import router from './router'
 import store from './store'
 import axios from 'axios'
 
 Vue.config.productionTip = false
+const options = {
+  color: '#d3ad44',
+  failedColor: '#d3ad44',
+  thickness: '10px',
+  transition: {
+    speed: '0.2s',
+    opacity: '0.6s',
+    termination: 300
+  },
+  autoRevert: true,
+  location: 'top',
+  inverse: false
+}
 
+Vue.use(VueProgressBar, options)
 new Vue({
   router,
   store,
